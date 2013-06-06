@@ -1,0 +1,51 @@
+# Some code used from http://stackoverflow.com/questions/5515278/plot-matplotlib-on-the-web
+# http://stackoverflow.com/questions/5515278/plot-matplotlib-on-the-web
+
+from django.http import HttpResponse
+import cStringIO
+import Image, ImageDraw # image libraries
+import os
+import tempfile
+os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
+from matplotlib.figure import Figure                      
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+
+fig = Figure(figsize=[4,4])                               
+ax = fig.add_axes([.1,.1,.8,.8])                          
+ax.scatter([1,2], [3,4])                                  
+canvas = FigureCanvasAgg(fig)
+
+# write image data to a string buffer and get the PNG image bytes
+buf = cStringIO.StringIO()
+canvas.print_png(buf)
+data = buf.getvalue()
+
+def hello(request):
+    #return HttpResponse("Hello world")
+
+    ''' A View that Returns a PNG Image generated using PIL'''
+'''
+    #import Image, ImageDraw 
+
+    size = (100,50)             # size of the image to create
+    im = Image.new('RGB', size) # create the image
+    draw = ImageDraw.Draw(im)   # create a drawing object that is
+                                # used to draw on the new image
+    red = (255,0,0)    # color of our text
+    text_pos = (10,10) # top-left position of our text
+    text = "Hello World!" # text to draw
+    # Now, we'll do the drawing: 
+    draw.text(text_pos, text, fill=red)
+    
+    del draw # I'm done drawing so I don't need this anymore
+    
+    # We need an HttpResponse object with the correct mimetype
+    response = HttpResponse(mimetype="image/png")
+    # now, we tell the image to save as a PNG to the 
+    # provided file-like object
+    im.save(response, 'PNG')
+
+    return response # and we're done!'''
+    im = Image.open(data)
+    im = Image.frombuffer("RGBX", (400,200), data)
+    im.show()

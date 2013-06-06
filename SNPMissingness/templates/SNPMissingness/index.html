@@ -1,0 +1,62 @@
+<html>
+<!-- Some code used from http://stackoverflow.com/questions/11053516/css-styling-for-a-button-using-input-type-button-instead-of-button -->
+<body style="background-color:#E3EFFF">
+<style type="text/css">
+ .LeftSideBar {
+  color:#08233e;
+  width:215px;
+  font:2.4em Futura, ‘Century Gothic’, AppleGothic, sans-serif;
+  font-size:70%;
+  padding:14px;
+  background:#ffcc00;
+  background-color:#D6F1FF;
+  border:1px solid #8FA9FF;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+  border-radius:10px;
+  border-bottom:1px solid #9f9f9f;
+  -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+  -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+  cursor:pointer;
+ }
+ .button:hover {
+  background-color:#BFE9FF);
+ }
+</style>
+
+<div style="position:absolute; top:10%; left:3%; visibility: visible; z-index:1;">
+<div class='LeftSideBar'><table id="BackgroundExplanation"><tr><td>
+<u>SNPs missing in the dataset<u></thead></td></tr><tr><td><br>
+This statistic represents the quantities of SNPs missing from individuals in the dataset.  SNPs can be reported
+as missing for reasons including that the machines used to identify them did not have clear enough results to determine
+exactly what the SNPs were for certain individuals.
+<br></div></td></tr></table></div><br>
+<table id="Navigation"><thead>
+<tr><td><div class='LeftSideBar'>Number of top SNPs to Report:<br><input type="test" size="25">
+<br><input type="button" value="Refresh results" onClick="document.location.href='/AnalysisOptions'"></div></td></tr>
+</thead></table>
+</div>
+
+<div style="position:absolute; top:10%; left:25%; visibility: visible; z-index:1;"><u><b>_____________Top SNPs_____________</b></u>
+<table id="ChiSquareAssociation"><thead><tr>
+<th scope="col" class="Threshold">SNP ID</th>
+<th scope="col" class="UnderThreshold">SNP Missingness Proportion</th>
+</tr></thead><tbody>
+{% if SNPList %}
+    <ul>
+    {% for SNPEntry in SNPList %}
+        <tr><td>{{SNPEntry.SNP}}</td><td>{{SNPEntry.SNPsMissingProportion}}</td></tr>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No SNPs are available.</p>
+{% endif %}
+</tbody></center></table>
+</div>
+
+<div style="position:absolute; top:10%; left:55%; visibility: visible; z-index:1;">Please wait for the plot to load...
+<div style="position:absolute; top:0px; visibility: visible; z-index:1;">
+<iframe frameborder=0 marginwidth=0 marginheight=0 width=800 height=800 src='/SNPMissingness/plot'>
+</div>
+</div>

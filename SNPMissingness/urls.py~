@@ -1,0 +1,10 @@
+from django.conf.urls import * #patterns, url
+
+from SNPMissingness import views, secondptest
+
+urlpatterns = patterns('',
+    url(r'^$', views.index, name='index'),
+    url(r'^(?P<snp_name>\d+)/$', views.snp_name, name='snp_name'),
+#    url(r'^secondptest/$', secondptest.hello, name='hello'),
+    url(r'^secondptest/$', views.snp_name, name='snp_name'),
+)

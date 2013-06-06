@@ -1,0 +1,19 @@
+from django.http import HttpResponse
+from django.shortcuts import render
+from SNPMissingness.models import *
+
+def index(request):
+    latest_SNP_list = SNPMissingness.objects.all()
+    context = {'latest_SNP_list': latest_SNP_list}
+    return render(request, '/home/nmsuton/Documents/Software/Python1/Django1/Django1/SNPMissingness/templates/SNPMissingness/index.html', context)
+#    template = loader.get_template('SNPMissingness/template/index.html')
+#    context = Context({
+#        'latest_SNP_list': latest_SNP_list,
+#    })
+#    return HttpResponse("Hello, world. You're at the poll index.")
+#    return HttpResponse("Input entered was: %s" % snp_name)
+#    output = ', '.join([p.SNP for p in latest_SNP_list])
+#    return HttpResponse(output)
+
+def snp_name(request, snp_name):
+    return HttpResponse("Input entered was: %s" % snp_name)

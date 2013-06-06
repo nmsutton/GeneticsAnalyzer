@@ -1,0 +1,22 @@
+use hapmapdata;
+
+# Case "Missingness"
+create table if not exists SNPMissingness_snpmissingness(ExtraSpace varchar(30), Chromosome int(5), SNP varchar(40) Primary Key, IndividualsMissingSNP int(30), GenotypesMissing int(30), SNPsMissingProportion decimal(8,8));
+
+LOAD DATA INFILE '/var/lib/openshift/51a818b85973ca611e000071/app-root/runtime/repo/wsgi/openshift/MySqlDataImport/hapmap1_missing_converted.lmiss' IGNORE INTO TABLE SNPMissingness_snpmissingness FIELDS TERMINATED BY ' ' LINES TERMINATED BY '\n';
+
+#        Case "MinorAllele"
+create table if not exists MinorAllele_minorallele(ExtraSpace varchar(30), Chromosome int(11), SNP varchar(40), Cluster int(30), Allele1 int(2), Allele2 int(2), MinorAlleleFrequency decimal(8,8), MinorAlleleCount int(11), NumberOfChromasomes int(11), ExtraSpace2 varchar(30), primary key (SNP));
+
+LOAD DATA INFILE '/var/lib/openshift/51a818b85973ca611e000071/app-root/runtime/repo/wsgi/openshift/MySqlDataImport/hapmap_minorallele_converted' IGNORE INTO TABLE MinorAllele_minorallele FIELDS TERMINATED BY ' ' LINES TERMINATED BY '\n';
+
+#        Case "HardyW"
+create table if not exists HardyWeinberg_hardyweinberg(ExtraSpace varchar(30), Chromosome int(11), SNP varchar(40), Test varchar(30), Allele1 int(2), Allele2 int(2), GenotypeCounts varchar(40), ObservedHeterozygosity decimal(8,8), ExpectedHeterozygosity decimal(8,8), HWPValue decimal(10,5), primary key (SNP));"
+
+# LOAD DATA INFILE '/var/lib/openshift/51a818b85973ca611e000071/app-root/runtime/repo/wsgi/openshift/MySqlDataImport/hapmap1_hardyw_converted.hwe' IGNORE INTO TABLE HardyWeinberg_hardyweinberg FIELDS TERMINATED BY ' ' LINES TERMINATED BY '\n';
+
+#        Case "ChiSquare"
+create table if not exists ChiSquareAssociation_chisquareassociation(ExtraSpace varchar(30), Chromosome varchar(30), SNP varchar(40), UnadjustedPValue mediumtext, CorrectedPValue int(11), BonfCorrectedPValue decimal(10,6), HolmPValue decimal(10,6), SidakSSPValue decimal(10,6), SidakSDPValue decimal(10,6), FDR_BH varchar(30), FDR_BY varchar(30), ExtraSpace2 varchar(30));"
+
+LOAD DATA INFILE '/var/lib/openshift/51a818b85973ca611e000071/app-root/runtime/repo/wsgi/openshift/MySqlDataImport/hapmap1_assoc_converted.assoc' IGNORE INTO TABLE ChiSquareAssociation_chisquareassociation FIELDS TERMINATED BY ' ' LINES TERMINATED BY '\n';
+

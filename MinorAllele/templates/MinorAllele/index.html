@@ -1,0 +1,63 @@
+<html>
+<!-- Some code used from http://stackoverflow.com/questions/11053516/css-styling-for-a-button-using-input-type-button-instead-of-button -->
+<!-  http://en.wikipedia.org/wiki/Minor_allele_frequency was referenced -->
+<body style="background-color:#E3EFFF">
+<style type="text/css">
+ .LeftSideBar {
+  color:#08233e;
+  width:215px;
+  font:2.4em Futura, ‘Century Gothic’, AppleGothic, sans-serif;
+  font-size:70%;
+  padding:14px;
+  background:url(overlay.png) repeat-x center #ffcc00;
+  background-color:#D6F1FF;
+  border:1px solid #8FA9FF;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+  border-radius:10px;
+  border-bottom:1px solid #9f9f9f;
+  -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+  -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+  cursor:pointer;
+ }
+ .button:hover {
+  background-color:#BFE9FF);
+ }
+</style>
+
+<div style="position:absolute; top:10%; left:3%; visibility: visible; z-index:1;">
+<div class='LeftSideBar'><table id="BackgroundExplanation"><tr><td>
+<u>Minor allele frequencies in the dataset<u></thead></td></tr><tr><td><br>
+Minor allele frequencies are statistics that show the occurrence of less common alleles within populations.  This
+charactoristic of individuals' alleles in datasets can be used as a filter to ensure that sufficient balance is
+present in allele variation.
+<br></div></td></tr></table></div><br>
+<table id="Navigation"><thead>
+<tr><td><div class='LeftSideBar'>Number of top SNPs to Report:<br><input type="test" size="25">
+<br><input type="button" value="Refresh results" onClick="document.location.href='/AnalysisOptions'"></div></td></tr>
+</thead></table>
+</div>
+
+<div style="position:absolute; top:10%; left:25%; visibility: visible; z-index:1;"><u><b>___________Top SNPs___________</b></u>
+<table id="ChiSquareAssociation"><thead><tr>
+<th scope="col" class="MAFThreshold">SNP ID</th>
+<th scope="col" class="UnderThreshold">Minor Allele Frequency</th>
+</tr></thead><tbody>
+{% if SNPList %}
+    <ul>
+    {% for SNPEntry in SNPList %}
+        <tr><td>{{SNPEntry.SNP}}</td><td>{{SNPEntry.MinorAlleleFrequency}}</td></tr>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No SNPs are available.</p>
+{% endif %}
+</tbody></center></table>
+</div>
+
+<div style="position:absolute; top:10%; left:55%; visibility: visible; z-index:1;">Please wait for the plot to load...
+<div style="position:absolute; top:0px; visibility: visible; z-index:1;">
+<iframe frameborder=0 marginwidth=0 marginheight=0 width=800 height=800 src='/MinorAllele/plot'>
+</div>
+</div>

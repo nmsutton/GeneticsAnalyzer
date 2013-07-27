@@ -1,63 +1,91 @@
 <html>
-<!-- Some code used from http://stackoverflow.com/questions/11053516/css-styling-for-a-button-using-input-type-button-instead-of-button -->
-<!-  http://en.wikipedia.org/wiki/Minor_allele_frequency was referenced -->
-<body style="background-color:#E3EFFF">
-<style type="text/css">
- .LeftSideBar {
-  color:#08233e;
-  width:215px;
-  font:2.4em Futura, ‘Century Gothic’, AppleGothic, sans-serif;
-  font-size:70%;
-  padding:14px;
-  background:url(overlay.png) repeat-x center #ffcc00;
-  background-color:#D6F1FF;
-  border:1px solid #8FA9FF;
-  -moz-border-radius:10px;
-  -webkit-border-radius:10px;
-  border-radius:10px;
-  border-bottom:1px solid #9f9f9f;
-  -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
-  -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
-  cursor:pointer;
- }
- .button:hover {
-  background-color:#BFE9FF);
- }
-</style>
+	<!-- Copyright by Nate Sutton 2013
+	This file provides the web browser view of this genetic analysis module.
+	Responsive design is included through css code allowing for the page to fit on a variety of window sizes.
+	Users can submit input and this page refreshes results without having to reload the whole page.  Python
+	code to present experimental analyses is rendered in frames within this page.
 
-<div style="position:absolute; top:10%; left:3%; visibility: visible; z-index:1;">
-<div class='LeftSideBar'><table id="BackgroundExplanation"><tr><td>
-<u>Minor allele frequencies in the dataset<u></thead></td></tr><tr><td><br>
-Minor allele frequencies are statistics that show the occurrence of less common alleles within populations.  This
-charactoristic of individuals' alleles in datasets can be used as a filter to ensure that sufficient balance is
-present in allele variation.
-<br></div></td></tr></table></div><br>
-<table id="Navigation"><thead>
-<tr><td><div class='LeftSideBar'>Number of top SNPs to Report:<br><input type="test" size="25">
-<br><input type="button" value="Refresh results" onClick="document.location.href='/AnalysisOptions'"></div></td></tr>
-</thead></table>
-</div>
+	References:
+	Some code used from http://stackoverflow.com/questions/11053516/css-styling-for-a-button-using-input-type-button-instead-of-button
+	and http://css-tricks.com/snippets/html/post-data-to-an-iframe/ was referenced.  http://en.wikipedia.org/wiki/Minor_allele_frequency
+	was also referenced -->
 
-<div style="position:absolute; top:10%; left:25%; visibility: visible; z-index:1;"><u><b>___________Top SNPs___________</b></u>
-<table id="ChiSquareAssociation"><thead><tr>
-<th scope="col" class="MAFThreshold">SNP ID</th>
-<th scope="col" class="UnderThreshold">Minor Allele Frequency</th>
-</tr></thead><tbody>
-{% if SNPList %}
-    <ul>
-    {% for SNPEntry in SNPList %}
-        <tr><td>{{SNPEntry.SNP}}</td><td>{{SNPEntry.MinorAlleleFrequency}}</td></tr>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No SNPs are available.</p>
-{% endif %}
-</tbody></center></table>
-</div>
+	<head>
+		<link href="/StaticResources/css/GeneralAnalysisPage.css" media="all" rel="stylesheet" type="text/css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<script src="/StaticResources/javascript/GeneralAnalysisPage.js" type="text/javascript"></script>
+	</head>
+	<style type="text/css">
+	</style>
 
-<div style="position:absolute; top:10%; left:55%; visibility: visible; z-index:1;">Please wait for the plot to load...
-<div style="position:absolute; top:0px; visibility: visible; z-index:1;">
-<iframe frameborder=0 marginwidth=0 marginheight=0 width=800 height=800 src='/MinorAllele/plot'>
-</div>
-</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script></script>
+	</head>
+	<body style="background-color:#E3EFFF">
+
+		<!-- This is the section for the left side bar of the page -->
+		<div style="position:absolute; top:10%; left:3%; visibility: visible; z-index:1;">
+			<div class='LeftSideBar'>
+				<table id="BackgroundExplanation">
+					<tr>
+						<td><u>Minor allele frequencies in the dataset<u></td>
+					</tr>
+					<tr>
+						<td>
+						<br>
+						Minor allele frequencies are statistics that show the occurrence of less common alleles within populations.  This
+						charactoristic of individuals' alleles in datasets can be used as a filter to ensure that sufficient balance is
+						present in allele variation.
+						<br>
+			</div></td></tr></table>
+		</div>
+		<br>
+		<table id="Navigation">
+			<thead>
+				<tr>
+					<td>
+					<div class='LeftSideBar'>
+						<form id="FilterExperimentResults" action="" target="" method="post" enctype="application/x-www-form-urlencoded">
+							{% csrf_token %}
+							Filter minor allele frequency shown in plot.
+							<br>
+							Please enter a value between 0 and 1:
+							<br>
+							<select name="ArithmaticOperator">
+								<option value="GreaterThan">Greater than</option>
+								<option value="GreaterThanOrEqual">Greater than or equals</option>
+								<option value="LessThan">Less than</option>
+								<option value="LessThanOrEqual">Less than or equals</option>
+							</select>
+							<br>
+							<input id="FilterThreshold" type="text" name="FilterThreshold" size="25" onblur="javascript:CheckDatabaseFilterErrors()">
+							<br>
+							<br>
+							<a href="javascript:SubmitForm()" style="font-size:130%;border:1px solid #8FA9FF;padding:3px;text-decoration: none;background: -webkit-gradient(linear, left top, left bottom, from(#F7F7F7), to(#D6D6D6));color:#08233e;">Refresh Results</a>
+						</form>
+					</div></td>
+				</tr>
+			</thead>
+		</table></div>
+
+		<!-- Error message that occurs when unacceptable database filtering input is entered -->
+		<div id="DatabaseFilterInputError" style="position:absolute; top:700px; left:60px; color:red; animation:DatabaseFilterErrorAnimation 5s linear 0s infinite alternate; -webkit-animation: DatabaseFilterErrorAnimation 5s linear 0s infinite alternate;">
+			A number less than 0 or greater than
+			<br>
+			or equal to 1 was entered
+		</div>
+
+		<!-- This code displays the experiment data table -->
+		<div style="position:absolute; top:10%; left:23%; visibility: visible; z-index:1;">
+			<iframe id="ExperimentResultsTable" name="ExperimentResultsTable" frameborder=0 marginwidth=0 marginheight=0 src='/MinorAllele/table' style='width:440px; height:800px'></iframe>
+		</div>
+
+		<!-- This code displays the plot for the experiment data -->
+		<div style="position:absolute; top:10%; left:55%; visibility: visible; z-index:1;">
+			<iframe id="ExperimentResultsPlot" name="ExperimentResultsPlot" frameborder=0 marginwidth=0 marginheight=0 src='http://imageshack.us/scaled/large/22/34669698.png' style='width:800px; height:800px' onload="document.getElementById('PlotRefreshingMessage').style.visibility = 'hidden'"></iframe>
+		</div>
+
+		<!-- Notice that the plot is updating -->
+		<div id="PlotRefreshingMessage" style="position:absolute; top:11%; left:64%; z-index:1; color:red; font-size:150%; animation:PlotUpdatingNotice 5s linear 0s infinite alternate; -webkit-animation: PlotUpdatingNotice 5s linear 0s infinite alternate;">
+			Please wait for the plot to update
+		</div>

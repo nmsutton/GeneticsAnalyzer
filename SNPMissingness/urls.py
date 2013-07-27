@@ -1,16 +1,16 @@
-'''
-Created on Jun 3, 2013
-
-@author: nmsuton
-'''
+# Copyright by Nate Sutton 2013 
+"""
+The urls for this genetic analysis module of the application are included here.
+"""
 
 from django.conf.urls.defaults import *
 
-from GeneticAnalysisTools import GeneratePlot
+from GeneticAnalysisTools import GeneratePlot, GenerateResultsTable
 from SNPMissingness.models import * # database access
 from SNPMissingness import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
-    url(r'^plot$', GeneratePlot.PlotData, {'GeneticDataRecords':SNPMissingness.objects.all(), 'GeneticAttributeName':'SNPsMissingProportion', 'PlotXLabel':'SNP Missingness Proportion', 'PlotYLabel':'Number of SNPs', 'PlotTitle':'Total distribution of SNP Missingness Proportions'}),
+    url(r'^plot$', views.GeneratePlot),
+    url(r'^table$', views.ResultsTable),    
 )

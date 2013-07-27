@@ -1,6 +1,14 @@
 #!/usr/bin/python
 
-# Used some code from http://www.tutorialspoint.com/python/python_files_io.htm
+# Copyright by Nate Sutton 2013 
+"""
+This file is used for converting analyses results generated with the plink tool into a format that works with importing it into
+this application's MySQL database.  It is used as a stand alone tool but is needed for creating this application.  The results
+file is parsed and reformatted using regular expressions.
+
+References:
+Used some code from http://www.tutorialspoint.com/python/python_files_io.htm
+"""
 
 import re
 import sys

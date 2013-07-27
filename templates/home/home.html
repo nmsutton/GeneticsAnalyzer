@@ -1,74 +1,106 @@
-
 <html>
-<head>
-<!-- A tool that is used for the genetic analyses is http://pngu.mgh.harvard.edu/~purcell/plink/ .  Some descriptions were based on information provided there. -->
-<!-- Some code used from http://shivasoft.in/blog/webtech/web/create-gradient-header-using-css/ -->
-<style type="text/css">
-h1 {
-background: #69A8FF;             /*Background color to header*/
-background: -moz-linear-gradient(top, #69A8FF, #F0FAFF);
-/*from to colors, I have used simple name it can be replaced by color codes*/
-background: -webkit-gradient(linear, left top, left bottom, from(#69A8FF), to(#F0FAFF));
-padding: 0px 0px;
-margin-left: 0px;
-margin-right: 50px;
-margin-top: 0;
-position: relative;
-width: 100%;
-/*from droping box shadow at the bottom of header*/
--moz-box-shadow: 1px 1px 3px #292929;
--webkit-box-shadow: 1px 1px 3px #292929;
-box-shadow: 1px 1px 3px #292929;
-color: #454545;
-text-shadow: 0 1px 0 white;
-font-size: 1.2em;
-}
+	<head>
+		<!-- Copyright by Nate Sutton 2013
+		This file is the main page for this web application.  It contains frame that display all other pages in the
+		application.  Frames are used to avoid users having to load entirely new pages.
+		A top menu is included through out the site but it is able to be scrolled past if users want to view this
+		site with a small window.
 
-GeneticAnalysesFrameStyle {
-position:absolute; 
-top:100px; 
-width: 99%; 
-visibility: visible; 
-z-index:1;
-padding: 0px 0px;
-margin-left: 0px;
-margin-right: 50px;
-margin-top: 0;
--moz-box-shadow: 1px 1px 3px #292929;
--webkit-box-shadow: 1px 1px 3px #292929;
-box-shadow: 1px 1px 3px #292929;
-}
-</style>
+		References:
+		A tool that is used for the genetic analyses is http://pngu.mgh.harvard.edu/~purcell/plink/ .  Some descriptions
+		in this site were based on information provided there.
+		Some code was used from http://shivasoft.in/blog/webtech/web/create-gradient-header-using-css/
+		and "view on github" graphic used from a github "minimal" template by https://github.com/orderedlist
+		http://www.handy-html.com/simple-css-dropdown-menu-updated/
+		http://www.lilianagaete.com/make-the-dropdown-work-in-internet-explorer/
+		http://alistapart.com/article/dropdowns
+		http://www.w3schools.com/css/css_link.asp -->
 
-<script language="JavaScript">
-function IframeToSNPMissingness() {document.getElementById("GeneticAnalysesFrame").src = "/SNPMissingness/";}
-function IframeToMinorAllele() {document.getElementById("GeneticAnalysesFrame").src = "/MinorAllele/";}
-function IframeToHardyWeinberg() {document.getElementById("GeneticAnalysesFrame").src = "/HardyWeinberg/";}
-function IframeToChiSquareAssociation() {document.getElementById("GeneticAnalysesFrame").src = "/ChiSquareAssociation/";}
-function DataStatisticsMenuAction() {
-    if (DataStatisticsDropMenu.options[DataStatisticsDropMenu.selectedIndex].value=="1") {IframeToSNPMissingness()}
-    else if (DataStatisticsDropMenu.options[DataStatisticsDropMenu.selectedIndex].value=="2") {IframeToMinorAllele()}
-    else if (DataStatisticsDropMenu.options[DataStatisticsDropMenu.selectedIndex].value=="3") {IframeToHardyWeinberg()}
-}
-function PopulationStratificationMenuAction() {
-    if (PopulationStratificationDropMenu.options[PopulationStratificationDropMenu.selectedIndex].value=="1") {  }
-}
-function AssociationExperimentsMenuAction() {
-    if (AssociationExperimentsDropMenu.options[AssociationExperimentsDropMenu.selectedIndex].value=="1") {IframeToChiSquareAssociation()}
-}
-</script>
-</head>
-<body bgcolor="#F2FBFF">
+		<link href="StaticResources/css/home.css" media="all" rel="stylesheet" type="text/css" />
+		<script src="StaticResources/javascript/home.js" type="text/javascript">
+			//Code to help menu be compatible across browsers
+			<!--//--><![CDATA[//><!--
+			activateMenuCompatibilityCode();
+			//--><!]]>
+		</script>
+	</head>
+	<body bgcolor="#F2FBFF">
 
-<div id="container">
-<h1><br><center>Select genetic data:</td>
-<td><select><option value="Hapmap">Hapmap</option></select></td>
-<td>Choose analysis type:</td>
-<td><select id="DataStatisticsDropMenu" onchange="DataStatisticsMenuAction()" selected="0"><option value="0">Quality Control Dataset Statistics</option><option value="1">SNPMissingness</option><option value="2">MinorAllele</option><option value="3">HardyWeinberg</option></select></td>
-<td><select id="PopulationStratificationDropMenu" onchange="PopulationStratificationMenuAction()" selected="0"><option value="0">Population Stratification</option><option value="1">Population Stratification Clustering</option></select></td>
-<td><select id="AssociationExperimentsDropMenu" onchange="AssociationExperimentsMenuAction()" selected="0"><option value="0">Trait Association Experiments</option><option value="1">Standard allelic test</option></select></td>
-</thead></table></center><br><span class="arrow"></span> </h1>
+		<div id="container">
+			<h1 style="width:100%;">
+			<table style="padding: 20px 4%;">
+				<tr>
+					<td><h1>
+					<ul id="nav" style="position:relative; left:5%; text-align:center;">
+						<li>
+							<a href="/">Home</a>
+						</li>
+						<li style="background: none; border: 0px;">
+							Select genetic data:
+						</li>
+						<li>
+							Hapmap
+							<ul style="z-index:5;top:38px;left:-1px;">
+								<li>
+									<a href="#">Hapmap</a>
+								</li>
+							</ul>
+						</li>
+						<li style="background: none; border: 0px;">
+							Choose analysis type:
+						</li>
+						<li>
+							Quality Control Dataset Statistics
+							<ul style="z-index:5;top:38px;left:-1px; width:93%">
+								<li style="width:100%">
+									<a href="javascript:IframeToSNPMissingness()">SNPMissingness</a>
+								</li>
+								<li style="width:100%">
+									<a href="javascript:IframeToMinorAllele()">MinorAllele</a>
+								</li>
+								<li style="width:100%">
+									<a href="javascript:IframeToHardyWeinberg()">Hardy Weinberg</a>
+								</li>
+							</ul>
+						</li>
+						<li style="background: none; border: 0px;">
+							<table>
+								<tr>
+									<!-- blank space -->
+								</tr>
+							</table>
+						</li>
+						<li>
+							Population Stratification
+							<ul style="z-index:5;top:38px;left:-1px;">
+								<li>
+									<a href="javascript:IframeToPopulationStratification()">Population Stratification Clustering</a>
+								</li>
+							</ul>
+						</li>
+						<li style="background: none; border: 0px;">
+							<table>
+								<tr>
+									<!-- blank space -->
+								</tr>
+							</table>
+						</li>
+						<li>
+							Trait Association Experiments
+							<ul style="z-index:5;top:38px;left:-1px; width:92%">
+								<li style="width:100%">
+									<a href="javascript:IframeToChiSquareAssociation()">Standard allelic test</a>
+								</li>
+							</ul>
+						</li>
+						<li style="background: none; border: 0px;">
+							<a href="http://github.com/nmsutton/GeneticsAnalyzer"><img src="http://imageshack.us/scaled/large/38/githublink2.jpg" style="position:relative;top:-7px;left:10px;"></a>
+						</li>
 
-<div class='GeneticAnalysesFrameStyle' >
-<iframe id='GeneticAnalysesFrame' frameborder=0 marginwidth=0 marginheight=0 width=100% height=83% src='/welcome.html'>
-</div>
+					</ul></h1></td>
+				</tr>
+			</table></h1>
+
+			<iframe id='GeneticAnalysesFrame' frameborder=0 marginwidth=0 marginheight=0 width=100% height=90% src='/welcome.html' style='position:relative; top:-5px; -moz-box-shadow: 1px 1px 3px #292929;
+			-webkit-box-shadow: 1px 1px 3px #292929;
+			box-shadow: 1px 1px 3px #292929;'>

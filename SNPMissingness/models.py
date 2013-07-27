@@ -1,3 +1,9 @@
+# Copyright by Nate Sutton 2013 
+"""
+This file specifies the attributes of any database tables that are used to access
+genetic data for this genetic analysis module of the application. 
+"""
+
 from django.db import models
 
 class SNPMissingness(models.Model):
@@ -6,7 +12,7 @@ class SNPMissingness(models.Model):
     SNP = models.CharField(primary_key=True,max_length=40)
     IndividualsMissingSNP = models.IntegerField(max_length=30)
     GenotypesMissing = models.IntegerField(max_length=30)
-    SNPsMissingProportion = models.DecimalField(max_digits=8, decimal_places=8)
+    SNPsMissingProportion = models.FloatField()
 
     def __unicode__(self):
         return self.SNP

@@ -1,0 +1,22 @@
+h1 {
+	background: #99CAFF; /*Background color to header*/
+	padding: 0px 0px;
+	margin-left: 0px;
+	margin-right: 50px;
+	margin-top: 0;
+	position: relative;
+	top: 20px;
+	width: 50%;
+	/*from droping box shadow at the bottom of header*/
+	-moz-box-shadow: 1px 1px 3px #292929;
+	-webkit-box-shadow: 1px 1px 3px #292929;
+	box-shadow: 1px 1px 3px #292929;
+	color: #454545;
+	text-shadow: 0 1px 0 white;
+	font-size: 1.2em;
+}
+
+.SiteDescriptionTable {
+	padding: 30px;
+	border: 0;
+}

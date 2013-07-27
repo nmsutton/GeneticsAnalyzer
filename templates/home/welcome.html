@@ -1,43 +1,56 @@
 <html>
-<!-- Some code used from http://www.html.am/html-codes/tables/table-border.cfm -->
-<head>
-<style type="text/css">
-h1 {
-background: #99CAFF;             /*Background color to header*/
-padding: 0px 0px;
-margin-left: 0px;
-margin-right: 50px;
-margin-top: 0;
-position:relative;
-top:20px;
-width: 50%;
-/*from droping box shadow at the bottom of header*/
--moz-box-shadow: 1px 1px 3px #292929;
--webkit-box-shadow: 1px 1px 3px #292929;
-box-shadow: 1px 1px 3px #292929;
-color: #454545;
-text-shadow: 0 1px 0 white;
-font-size: 1.2em;
-}
+	<!-- Copyright by Nate Sutton 2013
+	This page welcomes users to the site and gives an initial orientation about
+	what this site is for.
 
-.SiteDescriptionTable {
-padding:30px;border:0;
-}
-</style>
-</head>
-<body bgcolor="#E3EFFF"><center>
-<h1><table class="SiteDescriptionTable"><thead><td><br><div style="font-size: 1.7em;"><center>Welcome to this sample genetic experiment analysis site!</center></div><br><br></td></thead>
-<tr><td><div style="text-shadow: 0 0px 0 white; font-family: 'arial'; font-size: 1.2em;"><center>This site is for displaying some methods of presenting and interacting with 
-genetic experiment results.
-For geneticists, biologists, and public consumers with interests in genetics this displays some ways to retrieve and investigate results 
-from genetic experiments.  A concept behind this work is that experiments can be run at remote computers and individuals can receive results 
-anywhere through the web.  
-<br>
-<br>
-<div style="color:#D43B3B;">This site is presently still under active development and a lot will be added to it by the end of 06/05/13.</div>
-<br>
-Please use the navigation bar at the to explore some of the site's features!  Some future work includes providing a user friendly and 
-internet accessible way for users to create new types of experiments with custom datasets they provide.  Private secure access to uploaded 
-data is a future feature being considered as well.
-</center></div></td></tr></table>
-<br><br><br><table><tr><td> </td></tr></table></h1></center>
+	References:
+	Some code used from http://www.html.am/html-codes/tables/table-border.cfm -->
+	<head>
+		<link href="StaticResources/css/welcome.css" media="all" rel="stylesheet" type="text/css" />
+	</head>
+	<body bgcolor="#E3EFFF">
+		<center>
+			<h1>
+			<table class="SiteDescriptionTable">
+				<thead>
+					<td>
+					<br>
+					<div style="font-size: 1.7em;">
+						<center>
+							Welcome to this sample genetic experiment analysis site!
+						</center>
+					</div>
+					<br>
+					<br>
+					</td>
+				</thead>
+				<tr>
+					<td>
+					<div style="text-shadow: 0 0px 0 white; font-family: 'arial'; font-size: 1.2em;">
+						<center>
+							This site is for displaying some methods of presenting and interacting with
+							genetic experiment results.
+							For geneticists, biologists, and public consumers with interests in genetics this displays some ways to retrieve and investigate results
+							from genetic experiments.  A concept behind this work is that experiments can be run at remote computers and individuals can receive results
+							anywhere through the web.
+							<br>
+							<br>
+							Please use the navigation bar at the to explore some of the site's features!  Some future work includes providing a user friendly and
+							internet accessible way for users to create new types of experiments with custom datasets they provide.  Private secure access to uploaded
+							data is a future feature being considered as well.
+							<br>
+							<br>
+							This application provides a front end for users based on html, javascript, and css. In the back end, the Django python web framework is utilized to integrate python functionality into the site. This application is built through python and includes features based on the matplotlib graphics library. The genetic data used in this site is stored in a MySQL database and accessed through the use of the mysqldb python library and django's database interaction capabilities.
+						</center>
+					</div></td>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<table>
+				<tr>
+					<td></td>
+				</tr>
+			</table></h1>
+		</center>

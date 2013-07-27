@@ -1,16 +1,16 @@
-'''
-Created on Jun 3, 2013
-
-@author: nmsuton
-'''
+# Copyright by Nate Sutton 2013 
+"""
+The urls for this genetic analysis module of the application are included here.
+"""
 
 from django.conf.urls.defaults import *
 
-from GeneticAnalysisTools import GeneratePlot
+from GeneticAnalysisTools import GeneratePlot, GenerateResultsTable
 from HardyWeinberg.models import * # database access
 from HardyWeinberg import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
-    url(r'^plot$', GeneratePlot.PlotData, {'GeneticDataRecords':HardyWeinberg.objects.all(), 'GeneticAttributeName':'ObservedHeterozygosity', 'PlotXLabel':'Observed Heterozygosity', 'PlotYLabel':'Number of SNPs', 'PlotTitle':'Total distribution of SNP Observed Heterozygosity \n(I\'m working on a OH/EH graph)'}),
+    url(r'^plot$', views.GeneratePlot),
+    url(r'^table$', views.ResultsTable),    
 )

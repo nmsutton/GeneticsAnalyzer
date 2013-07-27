@@ -1,3 +1,7 @@
+"""
+This file contains Django settings for this web application
+"""
+
 # -*- coding: utf-8 -*-
 # Django settings for openshift project.
 import imp, os
@@ -80,7 +84,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_DIR, '..', 'static')
+STATIC_ROOT = os.path.join(PROJECT_DIR, '', 'StaticResources')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -145,6 +149,7 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'ChiSquareAssociation/templates'),
     os.path.join(PROJECT_DIR, 'MinorAllele/templates'),
     os.path.join(PROJECT_DIR, 'HardyWeinberg/templates'),
+    os.path.join(PROJECT_DIR, 'PopulationStratification/templates'),
 )
 
 INSTALLED_APPS = (

@@ -1,3 +1,9 @@
+# Copyright by Nate Sutton 2013 
+"""
+This file specifies the attributes of any database tables that are used to access
+genetic data for this genetic analysis module of the application. 
+"""
+
 from django.db import models
 
 class HardyWeinberg(models.Model):
@@ -8,9 +14,10 @@ class HardyWeinberg(models.Model):
     Allele1 = models.IntegerField(max_length=2) 
     Allele2 = models.IntegerField(max_length=2)
     GenotypeCounts = models.CharField(max_length=40)
-    ObservedHeterozygosity = models.DecimalField(max_digits=8, decimal_places=8)
-    ExpectedHeterozygosity = models.DecimalField(max_digits=8, decimal_places=8)
-    HWPValue = models.DecimalField(max_digits=10, decimal_places=5)
+    ObservedHeterozygosity = models.FloatField()
+    ExpectedHeterozygosity = models.FloatField()
+    HWPValue = models.FloatField()
+    oh_divided_by_eh = models.FloatField()
 
     def __unicode__(self):
         return self.SNP

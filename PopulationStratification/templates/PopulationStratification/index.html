@@ -1,0 +1,99 @@
+<html>
+	<!-- Copyright by Nate Sutton 2013
+	This file provides the web browser view of this genetic analysis module.
+	Responsive design is included through css code allowing for the page to fit on a variety of window sizes.
+	Users can submit input and this page refreshes results without having to reload the whole page.  Python
+	code to present experimental analyses is rendered in frames within this page.
+
+	References:
+	Some code used from http://stackoverflow.com/questions/11053516/css-styling-for-a-button-using-input-type-button-instead-of-button
+	and http://css-tricks.com/snippets/html/post-data-to-an-iframe/ was referenced -->
+
+	<head>
+		<link href="/StaticResources/css/PopulationStratification.css" media="all" rel="stylesheet" type="text/css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<script src="/StaticResources/javascript/PopulationStratification.js" type="text/javascript"></script>
+	</head>
+	<body style="background-color:#E3EFFF">
+
+		<!-- This is the section for the left side bar of the page -->
+		<div style="position:absolute; top:10%; left:3%; visibility: visible; z-index:1;">
+			<div class='LeftSideBar'>
+				<table id="BackgroundExplanation">
+					<tr>
+						<td><u>Population stratification estimation<u></td>
+					</tr>
+					<tr>
+						<td>
+						<br>
+						Population stratification estimation can be used to indicate the number of populations present in the data and how distinctive a variety of genetic markers
+						are in their ability to seperate populations.  Accounting for population stratification can be important for distinguishing between genetic markers
+						that a different in subjects due to their population or the tested phenotype trait.
+						<br>
+			</div></td></tr></table>
+		</div>
+		<br>
+		<table id="Navigation">
+			<thead>
+				<tr>
+					<td>
+					<div class='LeftSideBar'>
+						<form action="plot" target="ExperimentResultsPlot" method="post" enctype="application/x-www-form-urlencoded">
+							{% csrf_token %}
+							Adjust cluster coloring threshold shown in plot.  Please enter a value between -0.03 and 0.03:
+							<br>
+							<br>
+							<input id="FilterThreshold" type="text" name="FilterThreshold" size="25" onblur="javascript:CheckDatabaseFilterErrors()">
+							<br>
+							<br>
+							<input type="submit" value="Refresh results">
+						</form>
+					</div></td>
+				</tr>
+			</thead>
+		</table></div>
+
+		<div style="position:absolute; top:10%; left:25%; visibility: visible; z-index:1;">
+			<u><b>____Population_Stratification____</b></u>
+			<table id="ChiSquareAssociation">
+				<thead>
+					<tr>
+						<th scope="col" class="UnderThreshold">ID</th>
+						<th scope="col" class="UnderThreshold">MDS Factor 1</th>
+						<th scope="col" class="UnderThreshold">MDS Factor 2</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if SNPList %}
+					<ul>
+						{% for SNPEntry in SNPList %}
+						<tr>
+							<td>{{SNPEntry.ID}}</td><td>{{SNPEntry.MDS1}}</td><td>{{SNPEntry.MDS2}}</td>
+						</tr>
+						{% endfor %}
+					</ul>
+					{% else %}
+					<p>
+						No SNPs are available.
+					</p>
+					{% endif %}
+				</tbody></center>
+			</table>
+		</div>
+
+		<!-- Error message that occurs when unacceptable database filtering input is entered -->
+		<div id="DatabaseFilterInputError" style="position:absolute; top:770px; left:60px; color:red; animation:DatabaseFilterErrorAnimation 5s linear 0s infinite alternate; -webkit-animation: DatabaseFilterErrorAnimation 5s linear 0s infinite alternate;">
+			A number less than -0.03 or greater than
+			<br>
+			or equal to 0.03 was entered
+		</div>
+
+		<!-- This code displays the plot for the experiment data -->
+		<div style="position:absolute; top:10%; left:55%; visibility: visible; z-index:1;">
+			<iframe id="ExperimentResultsPlot" name="ExperimentResultsPlot" frameborder=0 marginwidth=0 marginheight=0 src='http://imageshack.us/scaled/large/203/82589521.png' style='width:800px; height:800px' onload="document.getElementById('PlotRefreshingMessage').style.visibility = 'hidden'"></iframe>
+		</div>
+
+		<!-- Notice that the plot is updating -->
+		<div id="PlotRefreshingMessage" style="position:absolute; top:11%; left:64%; z-index:1; color:red; font-size:150%; animation:PlotUpdatingNotice 5s linear 0s infinite alternate; -webkit-animation: PlotUpdatingNotice 5s linear 0s infinite alternate;">
+			Please wait for the plot to update
+		</div>
